@@ -80,19 +80,37 @@ describe("testing function l33tify", () => {
 //.replace() is used on string and pased in a substring to look for and a new substring to replace it with
 
 //create function l33tify that takes string
-const l33tify = (string) => {
+// const l33tify = (string) => {
+   
+//     //use .replace on string multiple times for a, e, i, and o
+//     //uses regex to specify the characters ('substr' part)
+//     // where /: escapes to regex, []:specifies a group or range, /g: global finds everything in the string
+//     let l33tString = string.replace(/[aA]/g, '4')
+//         .replace(/[eE]/g, '3')
+//         .replace(/[iI]/g, '1')
+//         .replace(/[oO]/g, '0');
 
-    //use .replace on string multiple times for a, e, i, and o
-    //uses regex to specify the characters ('substr' part)
-    // where /: escapes to regex, []:specifies a group or range, /g: global finds everything in the string
-    let l33tString = string.replace(/[aA]/g, '4')
-        .replace(/[eE]/g, '3')
-        .replace(/[iI]/g, '1')
-        .replace(/[oO]/g, '0');
-
-    return l33tString;
-}
+//     return l33tString
+// }
 //had to fiddle with the regex formatting....but got the test to pass!
+
+
+//REFACTORING REGEX ===============================================================
+//I resubmitted this file because I figured out some cool stuff regarding the replacer function feature in the replace() method
+//replace can take a replacerFunction that will replace the match with the first return case. Couldn't get if/else or switch statements to work in it though 
+//it just kept looking for the first return and ignoring logicals so it would replace all cases with '4'
+
+const l33tify = (string) => {   
+    //create an object to hold a, e, i, o keys and values
+    const aeio = {a:'4', e:'3', i:'1', o:'0'};
+
+    //return a string with the replace method use on it
+    //look for substr which is an 'a' or 'e' or 'i' or 'o' regardless of case (/i flag) for all occurences (/g flag)
+    //if you find an occurence, use arrow function to pass in a lower case version of the matched value which corresponds to a key in the 'aeio' object and will return a respective number
+    return string.replace(/[aeio]/gi, (match) => {return aeio[match.toLowerCase()]})
+}
+//as a note, had to use .toLowerCase() since even though /i allows us to find all occurences regardless of case, it does not carry through to the replacement portion
+//had a lot of fun with this one.
 
 // --------------------2) Create a function that takes in an array of words and a single letter and returns all the words that contain that particular letter.
 
